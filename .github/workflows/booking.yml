@@ -2,16 +2,16 @@ name: Class Booking Bot
 
 on:
   schedule:
-    # Lundi 7h30 Paris (6h30 UTC)
-    - cron: '30 6 * * 1'
-    # Mardi 11h00 Paris (10h00 UTC)
-    - cron: '00 10 * * 2'
-    # Mercredi 7h30 Paris (6h30 UTC)
+    # Lundi 7h30 Paris (6h30 UTC) - Exécution le mercredi précédent
     - cron: '30 6 * * 3'
-    # Jeudi 8h35 Paris (7h35 UTC)
-    - cron: '35 7 * * 4'
-    # Vendredi 8h35 Paris (7h35 UTC)
-    - cron: '35 7 * * 5'
+    # Mardi 11h00 Paris (10h00 UTC) - Exécution le jeudi précédent
+    - cron: '00 10 * * 4'
+    # Mercredi 7h30 Paris (6h30 UTC) - Exécution le vendredi précédent
+    - cron: '30 6 * * 5'
+    # Jeudi 8h35 Paris (7h35 UTC) - Exécution le samedi précédent
+    - cron: '35 7 * * 6'
+    # Vendredi 8h35 Paris (7h35 UTC) - Exécution le dimanche précédent
+    - cron: '35 7 * * 0'
   workflow_dispatch: # Permet de déclencher manuellement le workflow
 
 jobs:
