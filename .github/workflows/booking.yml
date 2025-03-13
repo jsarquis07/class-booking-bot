@@ -12,7 +12,13 @@ on:
     - cron: '35 7 * * 6'
     # Vendredi 8h35 Paris (7h35 UTC) - Exécution le dimanche précédent
     - cron: '35 7 * * 0'
-  workflow_dispatch: # Permet de déclencher manuellement le workflow
+  workflow_dispatch:
+    inputs:
+      test_mode:
+        description: 'Mode test (réduit les délais)'
+        required: false
+        default: 'false'
+        type: boolean
 
 jobs:
   book-class:
@@ -41,4 +47,5 @@ jobs:
         FRIDAY_TIME: ${{ secrets.FRIDAY_TIME }}
         LOGIN_BEFORE: ${{ secrets.LOGIN_BEFORE }}
         CLICK_AFTER: ${{ secrets.CLICK_AFTER }}
+        TEST_MODE: ${{ inputs.test_mode }}
       run: node email.js 

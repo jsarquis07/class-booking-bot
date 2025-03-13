@@ -11,33 +11,17 @@ function log(message) {
 function getTargetTime() {
     const now = new Date();
     const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 5); // 5 jours dans le futur
-
-    // Obtenir l'heure cible en fonction du jour
-    let targetTime;
-    switch (targetDate.getDay()) {
-        case 1: // Lundi
-            targetTime = process.env.MONDAY_TIME;
-            break;
-        case 2: // Mardi
-            targetTime = process.env.TUESDAY_TIME;
-            break;
-        case 3: // Mercredi
-            targetTime = process.env.WEDNESDAY_TIME;
-            break;
-        case 4: // Jeudi
-            targetTime = process.env.THURSDAY_TIME;
-            break;
-        case 5: // Vendredi
-            targetTime = process.env.FRIDAY_TIME;
-            break;
-        default:
-            throw new Error('Pas de cours ce jour-là');
+    
+    // On cherche le prochain mardi
+    while (targetDate.getDay() !== 2) { // 2 = mardi
+        targetDate.setDate(targetDate.getDate() + 1);
     }
+    
+    // On ajoute 5 jours pour avoir la date de réservation
+    targetDate.setDate(targetDate.getDate() + 5);
 
-    // Parser l'heure cible
-    const [hours, minutes] = targetTime.split(':').map(Number);
-    targetDate.setHours(hours, minutes, 0, 0);
+    // On force l'heure à 11h00
+    targetDate.setHours(11, 0, 0, 0);
 
     return targetDate;
 }
