@@ -12,17 +12,13 @@ function getTargetTime() {
     const now = new Date();
     const targetDate = new Date();
     
-    // On cherche le prochain mardi
-    while (targetDate.getDay() !== 2) { // 2 = mardi
-        targetDate.setDate(targetDate.getDate() + 1);
-    }
-    
     // On ajoute 5 jours pour avoir la date de réservation
     targetDate.setDate(targetDate.getDate() + 5);
-
+    
     // On force l'heure à 11h00
     targetDate.setHours(11, 0, 0, 0);
 
+    log(`Date cible: ${targetDate.toLocaleString()}`);
     return targetDate;
 }
 
