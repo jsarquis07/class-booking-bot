@@ -25,10 +25,17 @@ function getTargetTime() {
 function calculateDelays(targetDate) {
     const now = new Date();
     const loginTime = new Date(targetDate);
-    loginTime.setMinutes(loginTime.getMinutes() - parseInt(process.env.LOGIN_BEFORE));
-    
     const clickTime = new Date(targetDate);
-    clickTime.setSeconds(clickTime.getSeconds() + parseInt(process.env.CLICK_AFTER));
+
+    // En mode test, on réduit les délais à 1 minute
+    if (process.env.TEST_MODE === 'true') {
+        loginTime.setMinutes(now.getMinutes() + 1);
+        clickTime.setMinutes(now.getMinutes() + 1);
+        clickTime.setSeconds(clickTime.getSeconds() + 5);
+    } else {
+        loginTime.setMinutes(loginTime.getMinutes() - parseInt(process.env.LOGIN_BEFORE));
+        clickTime.setSeconds(clickTime.getSeconds() + parseInt(process.env.CLICK_AFTER));
+    }
 
     return {
         loginDelay: Math.max(0, loginTime - now),
